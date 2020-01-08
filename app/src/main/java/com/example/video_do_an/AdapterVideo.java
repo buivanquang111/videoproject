@@ -47,7 +47,7 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.Viewhoder> {
 
 
     }
-// ảo thế nhỉ
+
     @Override
     public int getItemCount() {
         return videos.size();
