@@ -1,0 +1,67 @@
+package com.example.video_do_an.thinh_hanh;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.video_do_an.R;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+
+public class AdapterThinhhanh extends RecyclerView.Adapter<AdapterThinhhanh.Viewhoder> {
+
+    Context context;
+    ArrayList<Thinhhanh> thinhhanhs;
+
+    public AdapterThinhhanh(ArrayList<Thinhhanh> thinhhanhs) {
+        this.thinhhanhs = thinhhanhs;
+    }
+
+    @NonNull
+    @Override
+    public AdapterThinhhanh.Viewhoder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
+        View view= inflater.inflate(R.layout.item_thinhhanh,parent,false);
+        context=parent.getContext();
+        Viewhoder viewhoder=new Viewhoder(view);
+
+        return viewhoder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull AdapterThinhhanh.Viewhoder holder, int position) {
+
+        Thinhhanh thinhhanh=thinhhanhs.get(position);
+
+        String thumb= thinhhanh.getThumb();
+        String title= thinhhanh.getTitle();
+
+        holder.tv_thinhhanh.setText(title);
+        Picasso.with(context).load(thumb).into(holder.img_thinhhanh);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return thinhhanhs.size();
+    }
+
+    public class Viewhoder extends RecyclerView.ViewHolder {
+
+        ImageView img_thinhhanh;
+        TextView tv_thinhhanh;
+        public Viewhoder(@NonNull View itemView) {
+            super(itemView);
+
+            img_thinhhanh=itemView.findViewById(R.id.img_thinhhanh);
+            tv_thinhhanh=itemView.findViewById(R.id.tv_thinhhanh);
+        }
+    }
+}

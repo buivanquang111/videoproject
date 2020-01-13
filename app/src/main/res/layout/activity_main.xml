@@ -1,27 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
+        android:background="@drawable/background_project"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
+        <!--viewflipper-->
+        <ViewFlipper
+            android:id="@+id/viewflipper"
+            android:layout_below="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_150sdp"/>
 
         <FrameLayout
             android:id="@+id/framelayout"
+            android:layout_below="@+id/viewflipper"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="80dp">
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_45sdp">
 
 
 
         </FrameLayout>
-        <RelativeLayout
 
+        <!--navigation bar-->
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="match_parent"
+            android:id="@+id/container">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+
+                android:id="@+id/navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:itemBackground="@color/BottomNavigation"
+                app:itemIconTint="@android:color/holo_blue_light"
+                app:itemTextColor="@android:color/black"
+                app:menu="@menu/navigation_menu"/>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/header"
+            android:background="@color/background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imgvideo"
@@ -36,68 +69,52 @@
                 android:textStyle="bold"
                 android:textColor="@color/textcolor"
                 android:layout_toRightOf="@+id/imgvideo"/>
-            <ImageView
-                android:id="@+id/imglogin"
-                android:layout_alignParentRight="true"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/icon_login"/>
-            <ImageView
-                android:id="@+id/imgsearch"
-                android:layout_toLeftOf="@+id/imglogin"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/icon_search"/>
+
+<!--            <LinearLayout-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:id="@+id/trangchu"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/imgtrangchu"-->
+<!--                    android:layout_width="@dimen/_40sdp"-->
+<!--                    android:layout_height="@dimen/_20sdp"-->
+<!--                    android:src="@drawable/icon_trangchu"/>-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/trang_chu"-->
+<!--                    android:textColor="@color/textcolor"-->
+<!--                    android:textStyle="bold"/>-->
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/thinhhanh"-->
+<!--                android:layout_toLeftOf="@+id/trangchu"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="20dp"-->
+
+<!--                android:orientation="vertical">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/imgthinhhanh"-->
+<!--                    android:layout_width="@dimen/_40sdp"-->
+<!--                    android:layout_height="@dimen/_20sdp"-->
+<!--                    android:src="@drawable/icon_thinhhanh"/>-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/thinh_hanh"-->
+<!--                    android:textColor="@color/textcolor"-->
+<!--                    android:textStyle="bold"/>-->
+<!--            </LinearLayout>-->
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_alignParentBottom="true">
-
-            <LinearLayout
-                android:id="@+id/trangchu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imgtrangchu"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/icon_trangchu"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/trang_chu"
-                    android:textColor="@color/textcolor"
-                    android:textStyle="bold"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/thinhhanh"
-                android:layout_toRightOf="@+id/trangchu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imgthinhhanh"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/icon_thinhhanh"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/thinh_hanh"
-                    android:textColor="@color/textcolor"
-                    android:textStyle="bold"/>
-            </LinearLayout>
-
-        </RelativeLayout>
     </RelativeLayout>
 
 

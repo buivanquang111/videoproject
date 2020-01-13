@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+   >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <VideoView
+            android:id="@+id/playVideo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_250sdp" />
+        <TextView
+            android:id="@+id/tvtitleplayvideo"
+            android:layout_below="@+id/playVideo"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:textStyle="italic"
+            android:textColor="@color/textcolor"
+            android:text="title"/>
+
+    </RelativeLayout>
+
+</layout>
