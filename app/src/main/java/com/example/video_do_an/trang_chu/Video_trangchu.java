@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +23,7 @@ import com.example.video_do_an.Main2Activity;
 import com.example.video_do_an.MainActivity;
 import com.example.video_do_an.R;
 import com.example.video_do_an.databinding.VideoTrangchuBinding;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -48,7 +52,7 @@ public class Video_trangchu extends Fragment {
 
         binding= DataBindingUtil.inflate(inflater, R.layout.video_trangchu,container,false);
 
-
+        ActionViewFlipper();
         videolist =new ArrayList<>();
 
         new DoGetData(Defile.STR_VIDEOHOT).execute();
@@ -56,6 +60,32 @@ public class Video_trangchu extends Fragment {
 
         return binding.getRoot();
     }
+
+    private void ActionViewFlipper() {
+        ArrayList<String> mangquangcao = new ArrayList<>();
+
+        mangquangcao.add(Defile.STR_VIEWFLIPPER1);
+        mangquangcao.add(Defile.STR_VIEWFLIPPER2);
+        mangquangcao.add(Defile.STR_VIEWFLIPPER3);
+        mangquangcao.add(Defile.STR_VIEWFLIPPER4);
+        mangquangcao.add(Defile.STR_VIEWFLIPPER5);
+
+        for (int i=0 ;i<mangquangcao.size(); i++){
+            ImageView imageView =new ImageView(getContext());
+            Picasso.with(getContext()).load(mangquangcao.get(i)).into(imageView);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            binding.viewflipper.addView(imageView);
+        }
+        binding.viewflipper.setFlipInterval(3000);
+        binding.viewflipper.setAutoStart(true);
+        Animation animation_slie_in = AnimationUtils.loadAnimation(getContext(),R.anim.slide_in_right);
+        Animation animation_slie_out = AnimationUtils.loadAnimation(getContext(),R.anim.slide_out_right);
+        binding.viewflipper.setInAnimation(animation_slie_in);
+        binding.viewflipper.setOutAnimation(animation_slie_out);
+
+    }
+
+
     public class DoGetData extends AsyncTask<Void, Void, Void> {
         String urlApi;
         String result="";
@@ -109,6 +139,7 @@ public class Video_trangchu extends Fragment {
                 adapterVideo.setiOnClickPlayVideo(new IOnClickPlayVideo() {
                     @Override
                     public void onClickplayvideo(Video video) {
+                        Toast.makeText(getContext(),"click video",Toast.LENGTH_LONG).show();
                         Intent intent= new Intent(getContext(), Main2Activity.class);
                         intent.putExtra("link_mp4", video.getMp4());
                         intent.putExtra("title_mp4",video.getText());

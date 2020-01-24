@@ -23,7 +23,6 @@ public class Main2Activity extends AppCompatActivity {
         VideoView videoView= findViewById(R.id.playVideo);
         link_mp4= getIntent().getStringExtra("link_mp4");
         title=getIntent().getStringExtra("title_mp4");
-
         binding.tvtitleplayvideo.setText(title);
 
         mediaController = new MediaController(this);

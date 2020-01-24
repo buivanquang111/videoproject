@@ -6,7 +6,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!--viewflipper-->
+        <ViewFlipper
+            android:id="@+id/viewflipper"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_150sdp"/>
+
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/viewflipper"
             android:id="@+id/list_trangchu"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

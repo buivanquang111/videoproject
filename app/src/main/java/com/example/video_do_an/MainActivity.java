@@ -35,16 +35,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_main);
 
-        ActionViewFlipper();
+
+
 
         getFragment(new Video_trangchu());
 
 
 
 
-
+        //thanh Bottomnavigation
         BottomNavigationView navigations=(BottomNavigationView) findViewById(R.id.navigation);
-
         navigations.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -64,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(),"Game",Toast.LENGTH_LONG).show();
                     return true;
                 }
+                else if(menuItem.getItemId() == R.id.navigation_gam){
+                    Toast.makeText(getBaseContext(),"Gam",Toast.LENGTH_LONG).show();
+                    return true;
+                }
 
                 return false;
             }
@@ -71,34 +75,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
     }
 
-    private void ActionViewFlipper() {
-        ArrayList<String> mangquangcao = new ArrayList<>();
 
-        mangquangcao.add(Defile.STR_VIEWFLIPPER1);
-        mangquangcao.add(Defile.STR_VIEWFLIPPER2);
-        mangquangcao.add(Defile.STR_VIEWFLIPPER3);
-        mangquangcao.add(Defile.STR_VIEWFLIPPER4);
-        mangquangcao.add(Defile.STR_VIEWFLIPPER5);
-
-        for (int i=0 ;i<mangquangcao.size(); i++){
-            ImageView imageView =new ImageView(getApplicationContext());
-            Picasso.with(getApplicationContext()).load(mangquangcao.get(i)).into(imageView);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            binding.viewflipper.addView(imageView);
-        }
-        binding.viewflipper.setFlipInterval(3000);
-        binding.viewflipper.setAutoStart(true);
-        Animation animation_slie_in = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_in_right);
-        Animation animation_slie_out = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_out_right);
-        binding.viewflipper.setInAnimation(animation_slie_in);
-        binding.viewflipper.setOutAnimation(animation_slie_out);
-
-    }
 
 
     public void getFragment(Fragment fragment){

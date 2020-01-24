@@ -18,6 +18,9 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:gravity="center"
             android:textStyle="italic"
             android:textColor="@color/textcolor"
             android:text="title"/>
