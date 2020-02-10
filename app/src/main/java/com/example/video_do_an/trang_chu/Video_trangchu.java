@@ -1,6 +1,6 @@
 package com.example.video_do_an.trang_chu;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,9 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.video_do_an.Defile;
-import com.example.video_do_an.Main2Activity;
-import com.example.video_do_an.MainActivity;
+import com.example.video_do_an.Define;
 import com.example.video_do_an.R;
 import com.example.video_do_an.databinding.VideoTrangchuBinding;
 import com.squareup.picasso.Picasso;
@@ -34,7 +32,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class Video_trangchu extends Fragment {
-
+    private IOnClickPlayVideo listen;
     VideoTrangchuBinding binding;
     AdapterVideo adapterVideo;
     ArrayList<Video> videolist;
@@ -50,12 +48,14 @@ public class Video_trangchu extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+
         binding= DataBindingUtil.inflate(inflater, R.layout.video_trangchu,container,false);
 
         ActionViewFlipper();
         videolist =new ArrayList<>();
 
-        new DoGetData(Defile.STR_VIDEOHOT).execute();
+        new DoGetData(Define.STR_VIDEOHOT).execute();
+
 
 
         return binding.getRoot();
@@ -64,11 +64,11 @@ public class Video_trangchu extends Fragment {
     private void ActionViewFlipper() {
         ArrayList<String> mangquangcao = new ArrayList<>();
 
-        mangquangcao.add(Defile.STR_VIEWFLIPPER1);
-        mangquangcao.add(Defile.STR_VIEWFLIPPER2);
-        mangquangcao.add(Defile.STR_VIEWFLIPPER3);
-        mangquangcao.add(Defile.STR_VIEWFLIPPER4);
-        mangquangcao.add(Defile.STR_VIEWFLIPPER5);
+        mangquangcao.add(Define.STR_VIEWFLIPPER1);
+        mangquangcao.add(Define.STR_VIEWFLIPPER2);
+        mangquangcao.add(Define.STR_VIEWFLIPPER3);
+        mangquangcao.add(Define.STR_VIEWFLIPPER4);
+        mangquangcao.add(Define.STR_VIEWFLIPPER5);
 
         for (int i=0 ;i<mangquangcao.size(); i++){
             ImageView imageView =new ImageView(getContext());
@@ -140,10 +140,15 @@ public class Video_trangchu extends Fragment {
                     @Override
                     public void onClickplayvideo(Video video) {
                         Toast.makeText(getContext(),"click video",Toast.LENGTH_LONG).show();
-                        Intent intent= new Intent(getContext(), Main2Activity.class);
-                        intent.putExtra("link_mp4", video.getMp4());
-                        intent.putExtra("title_mp4",video.getText());
-                        startActivity(intent);
+//                        Intent intent= new Intent(getContext(), Main2Activity.class);
+//                        intent.putExtra("link_mp4", video.getMp4());
+//                        intent.putExtra("title_mp4",video.getText());
+//                        startActivity(intent);
+
+
+
+                        listen.onClickplayvideo(video);
+
                     }
                 });
                 binding.listTrangchu.setAdapter(adapterVideo);
@@ -156,5 +161,17 @@ public class Video_trangchu extends Fragment {
             }
 
         }
+
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof IOnClickPlayVideo) {
+            listen = (IOnClickPlayVideo) context;
+        } else {
+            throw new RuntimeException(context.toString() + "must implement");
+        }
+
     }
 }

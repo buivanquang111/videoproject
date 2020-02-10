@@ -17,8 +17,6 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_45sdp">
 
-
-
         </FrameLayout>
 
         <!--navigation bar-->

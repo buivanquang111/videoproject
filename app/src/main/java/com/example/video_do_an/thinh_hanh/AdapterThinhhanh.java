@@ -19,10 +19,15 @@ public class AdapterThinhhanh extends RecyclerView.Adapter<AdapterThinhhanh.View
 
     Context context;
     ArrayList<Thinhhanh> thinhhanhs;
+    //IOnClickPlayThinhHanh iOnClickPlayThinhHanh;
 
     public AdapterThinhhanh(ArrayList<Thinhhanh> thinhhanhs) {
         this.thinhhanhs = thinhhanhs;
     }
+
+//    public void setiOnClickPlayThinhHanh(IOnClickPlayThinhHanh iOnClickPlayThinhHanh) {
+//        this.iOnClickPlayThinhHanh = iOnClickPlayThinhHanh;
+//    }
 
     @NonNull
     @Override
@@ -38,13 +43,19 @@ public class AdapterThinhhanh extends RecyclerView.Adapter<AdapterThinhhanh.View
     @Override
     public void onBindViewHolder(@NonNull AdapterThinhhanh.Viewhoder holder, int position) {
 
-        Thinhhanh thinhhanh=thinhhanhs.get(position);
+        final Thinhhanh thinhhanh=thinhhanhs.get(position);
 
         String thumb= thinhhanh.getThumb();
         String title= thinhhanh.getTitle();
 
         holder.tv_thinhhanh.setText(title);
         Picasso.with(context).load(thumb).into(holder.img_thinhhanh);
+//        holder.img_thinhhanh.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                iOnClickPlayThinhHanh.onclickplaythinhhanh(thinhhanh);
+//            }
+//        });
 
     }
 

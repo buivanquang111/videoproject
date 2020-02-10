@@ -1,5 +1,6 @@
 package com.example.video_do_an.thinh_hanh;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.video_do_an.Defile;
+import com.example.video_do_an.Define;
 import com.example.video_do_an.R;
 import com.example.video_do_an.databinding.ThinhHanhBinding;
 
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 
 public class Video_thinhhanh extends Fragment {
 
-        //String jsonarr="http://demo4855049.mockable.io/GetCategory";
+       // private IOnClickPlayThinhHanh listen;
         ThinhHanhBinding binding;
         AdapterThinhhanh adapterThinhhanh;
         ArrayList<Thinhhanh> thinhhanhlist;
@@ -48,7 +49,7 @@ public class Video_thinhhanh extends Fragment {
 
         thinhhanhlist =new ArrayList<>();
 
-        new DoGetData(Defile.STR_CATEGORY).execute();
+        new DoGetData(Define.STR_CATEGORY).execute();
 
         return binding.getRoot();
     }
@@ -98,8 +99,14 @@ public class Video_thinhhanh extends Fragment {
 
                     thinhhanhlist.add(new Thinhhanh(thumb,title));
                 }
-                //adapterThinhhanh.notifyDataSetChanged();
+
                 adapterThinhhanh=new AdapterThinhhanh(thinhhanhlist);
+//                adapterThinhhanh.setiOnClickPlayThinhHanh(new IOnClickPlayThinhHanh() {
+//                    @Override
+//                    public void onclickplaythinhhanh(Thinhhanh thinhhanh) {
+//                        listen.onclickplaythinhhanh(thinhhanh);
+//                    }
+//                });
                 binding.listThinhhanh.setAdapter(adapterThinhhanh);
                 RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
                 binding.listThinhhanh.setLayoutManager(layoutManager);
@@ -112,6 +119,16 @@ public class Video_thinhhanh extends Fragment {
         }
     }
 
+//    @Override
+//    public void onAttach(@NonNull Context context) {
+//        super.onAttach(context);
+//        if (context instanceof IOnClickPlayThinhHanh) {
+//            listen = (IOnClickPlayThinhHanh) context;
+//        } else {
+//            throw new RuntimeException(context.toString() + "must implement");
+//        }
+//
+//    }
 
 
 }

@@ -1,20 +1,21 @@
 package com.example.video_do_an;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
+
 import android.widget.Toast;
 
 import com.example.video_do_an.databinding.ActivityMainBinding;
+import com.example.video_do_an.playvideo.Playvideo_trangchu;
+
 import com.example.video_do_an.thinh_hanh.Video_thinhhanh;
+import com.example.video_do_an.trang_chu.IOnClickPlayVideo;
+import com.example.video_do_an.trang_chu.Video;
 import com.example.video_do_an.trang_chu.Video_trangchu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -23,7 +24,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IOnClickPlayVideo {
 
 
     ActivityMainBinding binding;
@@ -35,11 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_main);
 
-
-
-
         getFragment(new Video_trangchu());
-
 
 
 
@@ -89,6 +86,12 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onClickplayvideo(Video video) {
+        getFragment(Playvideo_trangchu.newInstance(video));
+    }
+
 
 }
 
