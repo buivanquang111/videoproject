@@ -3,20 +3,22 @@ package com.example.video_do_an.thinh_hanh;
 import java.io.Serializable;
 
 public class Thinhhanh implements Serializable {
-    String thumb;
+    String avatar;
     String title;
+    String filemp4;
 
-    public Thinhhanh(String thumb, String title) {
-        this.thumb = thumb;
+    public Thinhhanh(String avatar, String title, String filemp4) {
+        this.avatar = avatar;
         this.title = title;
+        this.filemp4 = filemp4;
     }
 
-    public String getThumb() {
-        return thumb;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setThumb(String thumb) {
-        this.thumb = thumb;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getTitle() {
@@ -25,5 +27,13 @@ public class Thinhhanh implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getFilemp4() {
+        return filemp4;
+    }
+
+    public void setFilemp4(String filemp4) {
+        this.filemp4 = filemp4;
     }
 }

@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.video_do_an.Define;
+import com.example.video_do_an.define.Define;
 import com.example.video_do_an.R;
 import com.example.video_do_an.databinding.VideoTrangchuBinding;
 import com.squareup.picasso.Picasso;
