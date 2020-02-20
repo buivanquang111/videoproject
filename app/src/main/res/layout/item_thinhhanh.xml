@@ -22,13 +22,14 @@
     <ImageView
         android:id="@+id/img_thinhhanh"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_150sdp"
+        android:layout_height="@dimen/_100sdp"
         android:scaleType="fitXY"/>
     <TextView
         android:id="@+id/tv_thinhhanh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/textcolor"
+        android:text="title"
         android:textSize="20dp"
         android:textStyle="bold"
         android:gravity="center"/>

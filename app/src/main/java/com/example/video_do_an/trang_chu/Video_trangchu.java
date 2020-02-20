@@ -140,12 +140,6 @@ public class Video_trangchu extends Fragment {
                     @Override
                     public void onClickplayvideo(Video video) {
                         Toast.makeText(getContext(),"click video",Toast.LENGTH_LONG).show();
-//                        Intent intent= new Intent(getContext(), Main2Activity.class);
-//                        intent.putExtra("link_mp4", video.getMp4());
-//                        intent.putExtra("title_mp4",video.getText());
-//                        startActivity(intent);
-
-
 
                         listen.onClickplayvideo(video);
 
