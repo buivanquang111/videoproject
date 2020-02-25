@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
@@ -26,8 +27,6 @@ import com.example.video_do_an.thinh_hanh.Video_thinhhanh;
 import com.example.video_do_an.trang_chu.Video;
 import com.example.video_do_an.trang_chu.Video_trangchu;
 
-import java.sql.Time;
-import java.util.concurrent.TimeUnit;
 
 public class Playvideo_trangchu extends Fragment {
 
@@ -73,6 +72,16 @@ public class Playvideo_trangchu extends Fragment {
             @Override
             public void onPrepared(MediaPlayer mp) {
                 setVideoProgress();
+            }
+        });
+
+        Display display = new Display();
+        myHandler.postDelayed(display,5000);
+        binding.playvideoview.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                binding.control.setVisibility(View.VISIBLE);
+                return false;
             }
         });
 
@@ -190,6 +199,15 @@ public class Playvideo_trangchu extends Fragment {
             }
         });
 
+    }
+
+    class Display implements Runnable{
+
+        @Override
+        public void run() {
+            myHandler.postDelayed(this,5000);
+            binding.control.setVisibility(View.GONE);
+        }
     }
 
 

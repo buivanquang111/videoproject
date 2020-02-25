@@ -5,94 +5,104 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <VideoView
-            android:id="@+id/playvideoview"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp" />
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imgpausevideo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/pause_video"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_95sdp"/>
+            <VideoView
+                android:id="@+id/playvideoview"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp" />
 
-        <ImageView
-            android:id="@+id/imgplayvideo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_95sdp"
-            android:src="@drawable/play_video"
-            android:visibility="gone"
-            />
+            <TextView
+                android:id="@+id/tvplayvideoview"
+                android:layout_below="@+id/playvideoview"
+                android:background="#AAA5A5"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:text="title"
+                android:textStyle="bold"
+                android:textColor="@color/textcolor"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"/>
 
-        <ImageView
-            android:id="@+id/imgtuanhanh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/tua_nhanh_video"
-            android:layout_marginLeft="@dimen/_220sdp"
-            android:layout_marginTop="@dimen/_95sdp"/>
-        <ImageView
-            android:id="@+id/imgtuacham"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/tua_cham_video"
-            android:layout_marginTop="@dimen/_95sdp"
-            android:layout_marginLeft="@dimen/_60sdp"/>
+            <FrameLayout
+                android:id="@+id/frameplaytrangchu"
+                android:layout_below="@+id/tvplayvideoview"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_300sdp"/>
 
-        <SeekBar
-            android:id="@+id/seekbar"
-            android:layout_marginTop="@dimen/_160sdp"
-            android:layout_marginLeft="@dimen/_40sdp"
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="@dimen/_15sdp"/>
-        <TextView
-            android:id="@+id/currentposition"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="hh:mm:nn"
-            android:textStyle="bold"
-            android:textColor="#ffffff"
-            android:layout_marginTop="@dimen/_160sdp"/>
-        <TextView
-            android:id="@+id/totalduration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/seekbar"
-            android:text="hh:mm:nn"
-            android:textStyle="bold"
-            android:textColor="#ffffff"
-            android:layout_marginTop="@dimen/_160sdp" />
-        <ImageView
-            android:id="@+id/fullscreen"
-            android:src="@drawable/fullscreen"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/_160sdp"/>
-
-
-        <TextView
-            android:id="@+id/tvplayvideoview"
-            android:layout_below="@+id/playvideoview"
-            android:background="#AAA5A5"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:gravity="center"
-            android:text="title"
-            android:textStyle="bold"
-            android:textColor="@color/textcolor"
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/control"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"/>
+            android:layout_height="match_parent"
+            android:visibility="visible">
 
-        <FrameLayout
-            android:id="@+id/frameplaytrangchu"
-            android:layout_below="@+id/tvplayvideoview"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_300sdp"/>
+            <ImageView
+                android:id="@+id/imgpausevideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/pause_video"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_95sdp"/>
 
+            <ImageView
+                android:id="@+id/imgplayvideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_95sdp"
+                android:src="@drawable/play_video"
+                android:visibility="gone"
+                />
+
+            <ImageView
+                android:id="@+id/imgtuanhanh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/tua_nhanh_video"
+                android:layout_marginLeft="@dimen/_220sdp"
+                android:layout_marginTop="@dimen/_95sdp"/>
+            <ImageView
+                android:id="@+id/imgtuacham"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/tua_cham_video"
+                android:layout_marginTop="@dimen/_95sdp"
+                android:layout_marginLeft="@dimen/_60sdp"/>
+
+            <SeekBar
+                android:id="@+id/seekbar"
+                android:layout_marginTop="@dimen/_160sdp"
+                android:layout_marginLeft="@dimen/_40sdp"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_15sdp"/>
+            <TextView
+                android:id="@+id/currentposition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="hh:mm:nn"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:layout_marginTop="@dimen/_160sdp"/>
+            <TextView
+                android:id="@+id/totalduration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/seekbar"
+                android:text="hh:mm:nn"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:layout_marginTop="@dimen/_160sdp" />
+            <ImageView
+                android:id="@+id/fullscreen"
+                android:src="@drawable/fullscreen"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/_160sdp"/>
+        </RelativeLayout>
     </RelativeLayout>
 </layout>
