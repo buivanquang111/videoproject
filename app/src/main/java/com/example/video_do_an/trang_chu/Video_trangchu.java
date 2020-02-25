@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.video_do_an.activity.SQLHelper;
 import com.example.video_do_an.define.Define;
 import com.example.video_do_an.R;
 import com.example.video_do_an.databinding.VideoTrangchuBinding;
@@ -36,6 +37,8 @@ public class Video_trangchu extends Fragment {
     VideoTrangchuBinding binding;
     AdapterVideo adapterVideo;
     ArrayList<Video> videolist;
+    SQLHelper sqlHelper;
+
 
     public static Video_trangchu newInstance(){
         Bundle args=new Bundle();
@@ -141,6 +144,16 @@ public class Video_trangchu extends Fragment {
                     public void onClickplayvideo(Video video) {
                         Toast.makeText(getContext(),"click video",Toast.LENGTH_LONG).show();
 
+                        //sql
+                        Video video1 = new Video(video.getImg(),video.getText(),video.getMp4());
+                        sqlHelper = new SQLHelper(getContext());
+                        videolist = (ArrayList<Video>) sqlHelper.getAllVideoAdvanced();
+                        if(videolist.isEmpty()==false && CHECK(video1.getText(), videolist)){
+                            sqlHelper.deleteVideo(video1.getText());
+                        }
+                        sqlHelper.insertVideo(video1);
+
+
                         listen.onClickplayvideo(video);
 
                     }
@@ -167,5 +180,13 @@ public class Video_trangchu extends Fragment {
             throw new RuntimeException(context.toString() + "must implement");
         }
 
+    }
+
+    public boolean CHECK(String title,ArrayList<Video> arrayList){
+        for (Video video:arrayList){
+            if(title.equals(video.getText()))
+                return true;
+        }
+        return false;
     }
 }
