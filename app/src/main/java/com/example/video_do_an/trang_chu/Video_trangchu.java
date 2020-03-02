@@ -18,10 +18,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.video_do_an.activity.SQLHelper;
+import com.example.video_do_an.SQLHelper;
 import com.example.video_do_an.define.Define;
 import com.example.video_do_an.R;
 import com.example.video_do_an.databinding.VideoTrangchuBinding;
+import com.example.video_do_an.define.Define_Methods;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -38,6 +39,8 @@ public class Video_trangchu extends Fragment {
     AdapterVideo adapterVideo;
     ArrayList<Video> videolist;
     SQLHelper sqlHelper;
+    ArrayList<Video> videoArrayList;
+    Define_Methods define_methods = new Define_Methods();
 
 
     public static Video_trangchu newInstance(){
@@ -144,14 +147,12 @@ public class Video_trangchu extends Fragment {
                     public void onClickplayvideo(Video video) {
                         Toast.makeText(getContext(),"click video",Toast.LENGTH_LONG).show();
 
-                        //sql
-                        Video video1 = new Video(video.getImg(),video.getText(),video.getMp4());
                         sqlHelper = new SQLHelper(getContext());
-                        videolist = (ArrayList<Video>) sqlHelper.getAllVideoAdvanced();
-                        if(videolist.isEmpty()==false && CHECK(video1.getText(), videolist)){
-                            sqlHelper.deleteVideo(video1.getText());
+                        videoArrayList = sqlHelper.getAllItem();
+                        if (videoArrayList.isEmpty()==false && define_methods.CHECK(video.getText(),videoArrayList)){
+                            sqlHelper.deleteItem(video.getText());
                         }
-                        sqlHelper.insertVideo(video1);
+                        sqlHelper.insertItem(video);
 
 
                         listen.onClickplayvideo(video);
@@ -182,11 +183,5 @@ public class Video_trangchu extends Fragment {
 
     }
 
-    public boolean CHECK(String title,ArrayList<Video> arrayList){
-        for (Video video:arrayList){
-            if(title.equals(video.getText()))
-                return true;
-        }
-        return false;
-    }
+
 }

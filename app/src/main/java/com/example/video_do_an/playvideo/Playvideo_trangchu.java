@@ -22,10 +22,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.video_do_an.R;
+import com.example.video_do_an.SQLHelper;
 import com.example.video_do_an.databinding.PlayvideoTrangchuBinding;
+import com.example.video_do_an.define.Define_Methods;
 import com.example.video_do_an.thinh_hanh.Video_thinhhanh;
 import com.example.video_do_an.trang_chu.Video;
 import com.example.video_do_an.trang_chu.Video_trangchu;
+
+import java.util.ArrayList;
 
 
 public class Playvideo_trangchu extends Fragment {
@@ -38,6 +42,10 @@ public class Playvideo_trangchu extends Fragment {
     String title;
     PlayvideoTrangchuBinding binding;
     double currentposition,totalduration;
+
+    Define_Methods define_methods = new Define_Methods();
+    ArrayList<Video> videoArrayList;
+    SQLHelper sqlHelper;
 
 
 
@@ -210,5 +218,14 @@ public class Playvideo_trangchu extends Fragment {
         }
     }
 
+    public void addHistory(Video video){
+        sqlHelper = new SQLHelper(getContext());
+        videoArrayList = sqlHelper.getAllItem();
+        if (videoArrayList.isEmpty() == false && define_methods.CHECK(video.getText(),videoArrayList)){
+            sqlHelper.deleteItem(video.getText());
+        }
+        sqlHelper.insertItem(video);
+
+    }
 
 }

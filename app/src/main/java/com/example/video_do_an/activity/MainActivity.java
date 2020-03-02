@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.video_do_an.R;
 import com.example.video_do_an.databinding.ActivityMainBinding;
+import com.example.video_do_an.fragHistory;
 import com.example.video_do_an.playvideo.Playvideo_thinhhanh;
 import com.example.video_do_an.playvideo.Playvideo_trangchu;
 
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements IOnClickPlayVideo
                     return  true;
                 }
                 else if (menuItem.getItemId() == R.id.navigation_amnhac){
-                    Toast.makeText(getBaseContext(),"am nhac",Toast.LENGTH_LONG).show();
+                    getFragment(new fragHistory());
                     return true;
                 }
                 else if(menuItem.getItemId() == R.id.navigation_game){
