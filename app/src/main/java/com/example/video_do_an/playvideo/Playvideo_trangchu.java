@@ -42,6 +42,8 @@ public class Playvideo_trangchu extends Fragment {
     String title;
     PlayvideoTrangchuBinding binding;
     double currentposition,totalduration;
+    int position;
+    ArrayList<Video> arrayList;
 
     Define_Methods define_methods = new Define_Methods();
     ArrayList<Video> videoArrayList;
@@ -54,13 +56,14 @@ public class Playvideo_trangchu extends Fragment {
         Playvideo_trangchu fragment = new Playvideo_trangchu();
         args.putSerializable("link_MP4", video.getMp4());
         args.putSerializable("title",video.getText());
+
         fragment.setArguments(args);
         return fragment;
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.playvideo_trangchu,container,false);
 
 
@@ -149,6 +152,32 @@ public class Playvideo_trangchu extends Fragment {
             }
         });
 
+        //auto next video
+//        binding.playvideoview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//            @Override
+//            public void onCompletion(MediaPlayer mp) {
+//                if (arrayList.isEmpty()==false){
+//                    Video itemNext = arrayList.get(0);
+//                    arrayList.remove(0);
+//                    arrayList.add(itemNext);
+//                    Uri nextUri = Uri.parse(itemNext.getMp4());
+//                    binding.playvideoview.setVideoURI(nextUri);
+//                    binding.playvideoview.requestFocus();
+//                    binding.playvideoview.start();
+//                    addHistory(itemNext);
+//
+//                    position++;
+//                }
+//            }
+//        });
+
+        //next video
+        binding.imgnextvideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
 
         return binding.getRoot();
@@ -227,5 +256,9 @@ public class Playvideo_trangchu extends Fragment {
         sqlHelper.insertItem(video);
 
     }
+
+
+
+
 
 }

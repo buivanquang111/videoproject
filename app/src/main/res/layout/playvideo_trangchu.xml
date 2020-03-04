@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/tua_nhanh_video"
-                android:layout_marginLeft="@dimen/_220sdp"
+                android:layout_marginLeft="@dimen/_190sdp"
                 android:layout_marginTop="@dimen/_95sdp"/>
             <ImageView
                 android:id="@+id/imgtuacham"
@@ -71,7 +71,22 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/tua_cham_video"
                 android:layout_marginTop="@dimen/_95sdp"
-                android:layout_marginLeft="@dimen/_60sdp"/>
+                android:layout_marginLeft="@dimen/_80sdp"/>
+            <ImageView
+                android:id="@+id/imgnextvideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/nextvideo"
+                android:layout_marginTop="@dimen/_95sdp"
+                android:layout_marginLeft="@dimen/_240sdp"/>
+            <ImageView
+                android:id="@+id/imgprevideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/pre_video"
+                android:layout_marginTop="@dimen/_95sdp"
+                android:layout_marginLeft="@dimen/_30sdp"/>
+
 
             <SeekBar
                 android:id="@+id/seekbar"

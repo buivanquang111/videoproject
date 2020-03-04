@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.video_do_an.databinding.FraghistoryBinding;
+import com.example.video_do_an.define.Define_Methods;
 import com.example.video_do_an.trang_chu.AdapterVideo;
 import com.example.video_do_an.trang_chu.IOnClickPlayVideo;
 import com.example.video_do_an.trang_chu.Video;
@@ -27,6 +28,8 @@ public class fragHistory extends Fragment {
     ArrayList<Video> videoArrayList;
     ArrayList<Video> arrayList;
     AdapterVideo adapterVideo;
+    Define_Methods define_methods = new Define_Methods();
+
 
 
     public static Video_trangchu newInstance(){
@@ -54,7 +57,11 @@ public class fragHistory extends Fragment {
         adapterVideo.setiOnClickPlayVideo(new IOnClickPlayVideo() {
             @Override
             public void onClickplayvideo(Video video) {
-                Toast.makeText(getContext(),"oke",Toast.LENGTH_LONG).show();
+                if (arrayList.isEmpty()==false && define_methods.CHECK(video.getText(),arrayList)){
+                    sqlHelper.deleteItem(video.getText());
+                }
+                sqlHelper.insertItem(video);
+
             }
         });
         binding.fraghistory.setAdapter(adapterVideo);

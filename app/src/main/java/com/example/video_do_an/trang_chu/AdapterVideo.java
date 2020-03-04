@@ -42,7 +42,7 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.Viewhoder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterVideo.Viewhoder holder, int position) {
+    public void onBindViewHolder(@NonNull AdapterVideo.Viewhoder holder, final int position) {
         final Video video=videos.get(position);
 
         String imgurl=video.getImg();

@@ -156,9 +156,9 @@ public class Video_trangchu extends Fragment {
 
 
                         listen.onClickplayvideo(video);
-
                     }
                 });
+
                 binding.listTrangchu.setAdapter(adapterVideo);
                 RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2, RecyclerView.VERTICAL, false);
                 binding.listTrangchu.setLayoutManager(layoutManager);
