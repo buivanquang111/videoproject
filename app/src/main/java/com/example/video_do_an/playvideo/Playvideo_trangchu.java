@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.video_do_an.R;
 import com.example.video_do_an.SQLHelper;
+import com.example.video_do_an.SQLHelperSave;
 import com.example.video_do_an.databinding.PlayvideoTrangchuBinding;
 import com.example.video_do_an.define.Define_Methods;
 import com.example.video_do_an.thinh_hanh.Video_thinhhanh;
@@ -44,10 +45,14 @@ public class Playvideo_trangchu extends Fragment {
     double currentposition,totalduration;
     int position;
     ArrayList<Video> arrayList;
+    Video videosave;
 
     Define_Methods define_methods = new Define_Methods();
-    ArrayList<Video> videoArrayList;
     SQLHelper sqlHelper;
+    ArrayList<Video> videoArrayList;
+    SQLHelperSave sqlHelperSave;
+    ArrayList<Video> arrayListVideoSave;
+
 
 
 
@@ -70,7 +75,7 @@ public class Playvideo_trangchu extends Fragment {
          title =(String) getArguments().getSerializable("title");
          binding.tvplayvideoview.setText(title);
          link_mp4= (String) getArguments().getSerializable("link_MP4");
-         Uri video = Uri.parse(link_mp4);
+         final Uri video = Uri.parse(link_mp4);
         binding.playvideoview.setVideoURI(video);
         binding.playvideoview.requestFocus();
         binding.playvideoview.start();
@@ -151,6 +156,7 @@ public class Playvideo_trangchu extends Fragment {
                 }
             }
         });
+
 
         //auto next video
 //        binding.playvideoview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -256,9 +262,6 @@ public class Playvideo_trangchu extends Fragment {
         sqlHelper.insertItem(video);
 
     }
-
-
-
 
 
 }

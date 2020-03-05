@@ -39,7 +39,7 @@ public class Video_trangchu extends Fragment {
     AdapterVideo adapterVideo;
     ArrayList<Video> videolist;
     SQLHelper sqlHelper;
-    ArrayList<Video> videoArrayList;
+    ArrayList<Video> arrayListSQL;
     Define_Methods define_methods = new Define_Methods();
 
 
@@ -148,14 +148,14 @@ public class Video_trangchu extends Fragment {
                         Toast.makeText(getContext(),"click video",Toast.LENGTH_LONG).show();
 
                         sqlHelper = new SQLHelper(getContext());
-                        videoArrayList = sqlHelper.getAllItem();
-                        if (videoArrayList.isEmpty()==false && define_methods.CHECK(video.getText(),videoArrayList)){
+                        arrayListSQL = sqlHelper.getAllItem();
+                        if(arrayListSQL.isEmpty()==false && define_methods.CHECK(video.getText(),arrayListSQL)){
                             sqlHelper.deleteItem(video.getText());
                         }
                         sqlHelper.insertItem(video);
 
-
                         listen.onClickplayvideo(video);
+
                     }
                 });
 

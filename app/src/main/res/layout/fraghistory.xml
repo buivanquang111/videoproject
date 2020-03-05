@@ -2,9 +2,25 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fraghistory"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/tvlichsu"
+            android:id="@+id/fraghistory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/tvlichsu"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:background="#CFCBCB"
+            android:text="Lịch sử đã xem"
+            android:textStyle="bold"
+            android:textSize="@dimen/_20sdp"
+            android:textColor="@color/textcolor"
+            android:gravity="center"/>
+    </RelativeLayout>
+
 
 </layout>

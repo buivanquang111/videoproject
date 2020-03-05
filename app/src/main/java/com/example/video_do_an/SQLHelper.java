@@ -41,7 +41,7 @@ public class SQLHelper extends SQLiteOpenHelper {
     public void insertItem (Video video){
         sqLiteDatabase = getWritableDatabase();
         contentValues = new ContentValues();
-        contentValues.put("img",video.getImg());
+        contentValues.put("image",video.getImg());
         contentValues.put("title",video.getText());
         contentValues.put("file_mp4",video.getMp4());
         sqLiteDatabase.insert(DB_NAME_TABLE,null,contentValues);
@@ -54,7 +54,7 @@ public class SQLHelper extends SQLiteOpenHelper {
         sqLiteDatabase = getReadableDatabase();
         cursor = sqLiteDatabase.query(false,DB_NAME_TABLE,null,null,null,null,null,null,null);
         while (cursor.moveToNext()){
-            String img = cursor.getString(cursor.getColumnIndex("img"));
+            String img = cursor.getString(cursor.getColumnIndex("image"));
             String title = cursor.getString(cursor.getColumnIndex("title"));
             String file_mp4 = cursor.getString(cursor.getColumnIndex("file_mp4"));
             video = new Video(img,title,file_mp4);

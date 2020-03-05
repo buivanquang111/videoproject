@@ -32,9 +32,9 @@ public class fragHistory extends Fragment {
 
 
 
-    public static Video_trangchu newInstance(){
+    public static fragHistory newInstance(){
         Bundle args=new Bundle();
-        Video_trangchu fragment=new Video_trangchu();
+        fragHistory fragment=new fragHistory();
         fragment.setArguments(args);
         return fragment;
     }
@@ -44,7 +44,7 @@ public class fragHistory extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding= DataBindingUtil.inflate(inflater, R.layout.fraghistory,container,false);
 
-        videoArrayList = new ArrayList<>();
+        //videoArrayList = new ArrayList<>();
         sqlHelper = new SQLHelper(getContext());
         videoArrayList = sqlHelper.getAllItem();
         arrayList = new ArrayList<>();
@@ -54,16 +54,16 @@ public class fragHistory extends Fragment {
         }
 
         adapterVideo = new AdapterVideo(arrayList);
-        adapterVideo.setiOnClickPlayVideo(new IOnClickPlayVideo() {
-            @Override
-            public void onClickplayvideo(Video video) {
-                if (arrayList.isEmpty()==false && define_methods.CHECK(video.getText(),arrayList)){
-                    sqlHelper.deleteItem(video.getText());
-                }
-                sqlHelper.insertItem(video);
-
-            }
-        });
+//        adapterVideo.setiOnClickPlayVideo(new IOnClickPlayVideo() {
+//            @Override
+//            public void onClickplayvideo(Video video) {
+//                if (arrayList.isEmpty()==false && define_methods.CHECK(video.getText(),arrayList)){
+//                    sqlHelper.deleteItem(video.getText());
+//                }
+//                sqlHelper.insertItem(video);
+//
+//            }
+//        });
         binding.fraghistory.setAdapter(adapterVideo);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 1, RecyclerView.VERTICAL, false);
         binding.fraghistory.setLayoutManager(layoutManager);
