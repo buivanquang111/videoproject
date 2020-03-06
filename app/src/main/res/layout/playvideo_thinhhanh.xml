@@ -6,92 +6,105 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <VideoView
-            android:id="@+id/playvideoviewthinhhanh"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"/>
-        <TextView
-            android:layout_below="@+id/playvideoviewthinhhanh"
-            android:id="@+id/tvplayvideoviewthinhhanh"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:text="@string/title"
-            android:background="#AAA5A5"
-            android:textColor="@color/textcolor"
-            android:textStyle="bold"
-            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <VideoView
+                android:id="@+id/playvideoviewthinhhanh"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"/>
+            <TextView
+                android:layout_below="@+id/playvideoviewthinhhanh"
+                android:id="@+id/tvplayvideoviewthinhhanh"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="@string/title"
+                android:background="#AAA5A5"
+                android:textColor="@color/textcolor"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rvcontroll"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"/>
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imgpausevideoTT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/pause_video"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_95sdp"/>
+            <ImageView
+                android:id="@+id/imgpausevideoTT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/pause_video"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_95sdp"/>
 
-        <ImageView
-            android:id="@+id/imgplayvideoTT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_95sdp"
-            android:src="@drawable/play_video"
-            android:visibility="gone"
-            />
+            <ImageView
+                android:id="@+id/imgplayvideoTT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_95sdp"
+                android:src="@drawable/play_video"
+                android:visibility="gone"
+                />
 
-        <ImageView
-            android:id="@+id/imgtuanhanhTT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/tua_nhanh_video"
-            android:layout_marginLeft="@dimen/_220sdp"
-            android:layout_marginTop="@dimen/_95sdp"/>
-        <ImageView
-            android:id="@+id/imgtuachamTT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/tua_cham_video"
-            android:layout_marginTop="@dimen/_95sdp"
-            android:layout_marginLeft="@dimen/_60sdp"/>
+            <ImageView
+                android:id="@+id/imgtuanhanhTT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/tua_nhanh_video"
+                android:layout_marginLeft="@dimen/_220sdp"
+                android:layout_marginTop="@dimen/_95sdp"/>
+            <ImageView
+                android:id="@+id/imgtuachamTT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/tua_cham_video"
+                android:layout_marginTop="@dimen/_95sdp"
+                android:layout_marginLeft="@dimen/_60sdp"/>
 
-        <SeekBar
-            android:id="@+id/seekbarTT"
-            android:layout_marginTop="@dimen/_160sdp"
-            android:layout_marginLeft="@dimen/_40sdp"
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="@dimen/_15sdp"/>
-        <TextView
-            android:id="@+id/currentpositionTT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="hh:mm:nn"
-            android:textStyle="bold"
-            android:textColor="#ffffff"
-            android:layout_marginTop="@dimen/_160sdp"/>
-        <TextView
-            android:id="@+id/totaldurationTT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/seekbarTT"
-            android:text="hh:mm:nn"
-            android:textStyle="bold"
-            android:textColor="#ffffff"
-            android:layout_marginTop="@dimen/_160sdp" />
-        <ImageView
-            android:id="@+id/fullscreenTT"
-            android:src="@drawable/fullscreen"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/_160sdp"/>
+            <SeekBar
+                android:id="@+id/seekbarTT"
+                android:layout_marginTop="@dimen/_160sdp"
+                android:layout_marginLeft="@dimen/_40sdp"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_15sdp"/>
+            <TextView
+                android:id="@+id/currentpositionTT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="hh:mm:nn"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:layout_marginTop="@dimen/_160sdp"/>
+            <TextView
+                android:id="@+id/totaldurationTT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/seekbarTT"
+                android:text="hh:mm:nn"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:layout_marginTop="@dimen/_160sdp" />
+            <ImageView
+                android:id="@+id/saveyt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/savevideo"
+                android:layout_marginLeft="@dimen/_260sdp"
+                android:layout_marginTop="@dimen/_20sdp"/>
+            <ImageView
+                android:id="@+id/fullscreenTT"
+                android:src="@drawable/fullscreen"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/_160sdp"/>
 
-        <FrameLayout
-            android:id="@+id/frameplaythinhhanh"
-            android:layout_below="@+id/tvplayvideoviewthinhhanh"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_300sdp"/>
+        </RelativeLayout>
+
+
     </RelativeLayout>
 
 </layout>

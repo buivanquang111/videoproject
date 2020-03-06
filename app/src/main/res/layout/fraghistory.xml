@@ -12,7 +12,7 @@
             android:layout_height="match_parent"/>
         <TextView
             android:id="@+id/tvlichsu"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/_270sdp"
             android:layout_height="@dimen/_50sdp"
             android:background="#CFCBCB"
             android:text="Lịch sử đã xem"
@@ -20,6 +20,18 @@
             android:textSize="@dimen/_20sdp"
             android:textColor="@color/textcolor"
             android:gravity="center"/>
+        <TextView
+
+            android:id="@+id/tvdelete"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_toRightOf="@+id/tvlichsu"
+            android:text="xóa lịch sử"
+            android:textStyle="bold"
+            android:textColor="@color/textcolor"
+            android:gravity="center"
+            android:background="#ECA641"/>
+
     </RelativeLayout>
 
 

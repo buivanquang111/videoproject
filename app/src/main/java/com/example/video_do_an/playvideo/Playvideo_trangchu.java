@@ -1,17 +1,18 @@
 package com.example.video_do_an.playvideo;
 
-
-
+import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 
 
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -26,30 +27,31 @@ import com.example.video_do_an.SQLHelper;
 import com.example.video_do_an.SQLHelperSave;
 import com.example.video_do_an.databinding.PlayvideoTrangchuBinding;
 import com.example.video_do_an.define.Define_Methods;
-import com.example.video_do_an.thinh_hanh.Video_thinhhanh;
+import com.example.video_do_an.trang_chu.AdapterVideo;
+import com.example.video_do_an.trang_chu.IOnClickPlayVideo;
 import com.example.video_do_an.trang_chu.Video;
-import com.example.video_do_an.trang_chu.Video_trangchu;
-
 import java.util.ArrayList;
-
 
 public class Playvideo_trangchu extends Fragment {
 
 
-
+    private IOnClickPlayVideo listen;
     Handler myHandler = new Handler();
 
     String link_mp4;
     String title;
+    String img;
+    int getTimeCurrent;
     PlayvideoTrangchuBinding binding;
     double currentposition,totalduration;
-    int position;
+    int position=0;
     ArrayList<Video> arrayList;
+    AdapterVideo adapterVideo;
     Video videosave;
 
     Define_Methods define_methods = new Define_Methods();
     SQLHelper sqlHelper;
-    ArrayList<Video> videoArrayList;
+    ArrayList<Video> arrayListSQL;
     SQLHelperSave sqlHelperSave;
     ArrayList<Video> arrayListVideoSave;
 
@@ -61,6 +63,7 @@ public class Playvideo_trangchu extends Fragment {
         Playvideo_trangchu fragment = new Playvideo_trangchu();
         args.putSerializable("link_MP4", video.getMp4());
         args.putSerializable("title",video.getText());
+        args.putSerializable("image",video.getImg());
 
         fragment.setArguments(args);
         return fragment;
@@ -71,17 +74,21 @@ public class Playvideo_trangchu extends Fragment {
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.playvideo_trangchu,container,false);
 
+        img = (String) getArguments().getSerializable("image");
 
          title =(String) getArguments().getSerializable("title");
          binding.tvplayvideoview.setText(title);
          link_mp4= (String) getArguments().getSerializable("link_MP4");
          final Uri video = Uri.parse(link_mp4);
+
+         videosave = new Video(img,title,link_mp4);
         binding.playvideoview.setVideoURI(video);
         binding.playvideoview.requestFocus();
         binding.playvideoview.start();
 
-        //goi fragment
-        getFragmentManager().beginTransaction().replace(R.id.frameplaytrangchu,new Video_thinhhanh()).commit();
+
+
+
 
         //seekbar
         binding.playvideoview.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -91,6 +98,7 @@ public class Playvideo_trangchu extends Fragment {
             }
         });
 
+        //diplay controll
         Display display = new Display();
         myHandler.postDelayed(display,5000);
         binding.playvideoview.setOnTouchListener(new View.OnTouchListener() {
@@ -158,32 +166,26 @@ public class Playvideo_trangchu extends Fragment {
         });
 
 
-        //auto next video
-//        binding.playvideoview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//            @Override
-//            public void onCompletion(MediaPlayer mp) {
-//                if (arrayList.isEmpty()==false){
-//                    Video itemNext = arrayList.get(0);
-//                    arrayList.remove(0);
-//                    arrayList.add(itemNext);
-//                    Uri nextUri = Uri.parse(itemNext.getMp4());
-//                    binding.playvideoview.setVideoURI(nextUri);
-//                    binding.playvideoview.requestFocus();
-//                    binding.playvideoview.start();
-//                    addHistory(itemNext);
-//
-//                    position++;
-//                }
-//            }
-//        });
+
 
         //next video
         binding.imgnextvideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(),"next video",Toast.LENGTH_LONG).show();
 
             }
         });
+
+        //addsavevideo
+        binding.savevideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"add save video",Toast.LENGTH_LONG).show();
+                addSave(videosave);
+            }
+        });
+
 
 
         return binding.getRoot();
@@ -255,13 +257,25 @@ public class Playvideo_trangchu extends Fragment {
 
     public void addHistory(Video video){
         sqlHelper = new SQLHelper(getContext());
-        videoArrayList = sqlHelper.getAllItem();
-        if (videoArrayList.isEmpty() == false && define_methods.CHECK(video.getText(),videoArrayList)){
+        arrayListSQL = sqlHelper.getAllItem();
+        if (arrayListSQL.isEmpty() == false && define_methods.CHECK(video.getText(),arrayListSQL)){
             sqlHelper.deleteItem(video.getText());
         }
         sqlHelper.insertItem(video);
 
     }
+
+    public void addSave(Video videoAddSave){
+        sqlHelperSave = new SQLHelperSave(getContext());
+        arrayListVideoSave = sqlHelperSave.getALLItem();
+        if(arrayListVideoSave.isEmpty()==false && define_methods.CHECK(videoAddSave.getText(),arrayListVideoSave)){
+            sqlHelperSave.deleteItem(videoAddSave.getText());
+        }
+        sqlHelperSave.insertItem(videoAddSave);
+
+    }
+
+
 
 
 }

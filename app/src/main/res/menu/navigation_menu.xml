@@ -18,7 +18,7 @@
     <item
         android:id="@+id/navigation_game"
         android:icon="@drawable/icon_amnhac"
-        android:title="Game"/>
+        android:title="@string/navigation_title_yeuthich"/>
     <item
         android:id="@+id/navigation_gam"
         android:icon="@drawable/icon_amnhac"

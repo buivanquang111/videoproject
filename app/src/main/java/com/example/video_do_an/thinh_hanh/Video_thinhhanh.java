@@ -15,9 +15,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.video_do_an.SQLHelper;
 import com.example.video_do_an.define.Define;
 import com.example.video_do_an.R;
 import com.example.video_do_an.databinding.ThinhHanhBinding;
+import com.example.video_do_an.define.Define_Methods;
+import com.example.video_do_an.trang_chu.Video;
 
 
 import org.json.JSONArray;
@@ -34,6 +37,9 @@ public class Video_thinhhanh extends Fragment {
         ThinhHanhBinding binding;
         AdapterThinhhanh adapterThinhhanh;
         ArrayList<Thinhhanh> thinhhanhlist;
+        SQLHelper sqlHelper;
+        ArrayList<Video> arrayListSQL;
+        Define_Methods define_methods = new Define_Methods();
 
         public static Video_thinhhanh newInstance(){
             Bundle args=new Bundle();
@@ -105,6 +111,15 @@ public class Video_thinhhanh extends Fragment {
                 adapterThinhhanh.setiOnClickPlayThinhHanh(new IOnClickPlayThinhHanh() {
                     @Override
                     public void onclickplaythinhhanh(Thinhhanh thinhhanh) {
+                        Video item = new Video(thinhhanh.getAvatar(),thinhhanh.getTitle(),thinhhanh.getFilemp4());
+                        sqlHelper = new SQLHelper(getContext());
+                        arrayListSQL = sqlHelper.getAllItem();
+                        if (arrayListSQL.isEmpty()==false && define_methods.CHECK(item.getText(),arrayListSQL)){
+                            sqlHelper.deleteItem(item.getText());
+                        }
+                        sqlHelper.insertItem(item);
+
+
                         listen.onclickplaythinhhanh(thinhhanh);
                     }
                 });

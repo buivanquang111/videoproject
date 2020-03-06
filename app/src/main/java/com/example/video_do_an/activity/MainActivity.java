@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import android.widget.Toast;
 
+import com.example.video_do_an.FragAddSave;
 import com.example.video_do_an.R;
 import com.example.video_do_an.databinding.ActivityMainBinding;
 import com.example.video_do_an.fragHistory;
@@ -65,11 +66,11 @@ public class MainActivity extends AppCompatActivity implements IOnClickPlayVideo
                     return true;
                 }
                 else if(menuItem.getItemId() == R.id.navigation_game){
-                    Toast.makeText(getBaseContext(),"Game",Toast.LENGTH_LONG).show();
+                    getFragment(new FragAddSave());
                     return true;
                 }
                 else if(menuItem.getItemId() == R.id.navigation_gam){
-                    Toast.makeText(getBaseContext(),"Gam",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(),"Game",Toast.LENGTH_LONG).show();
                     return true;
                 }
 

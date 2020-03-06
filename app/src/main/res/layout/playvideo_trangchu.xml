@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
+        android:id="@+id/rvvideoview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -26,12 +27,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"/>
 
-            <FrameLayout
-                android:id="@+id/frameplaytrangchu"
-                android:layout_below="@+id/tvplayvideoview"
-                android:layout_marginTop="@dimen/_15sdp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_300sdp"/>
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tvplayvideoview"
+                android:layout_marginTop="@dimen/_5sdp"/>
+            <ProgressBar
+                android:id="@+id/prplayvideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone"/>
 
         </RelativeLayout>
         <RelativeLayout
@@ -126,6 +133,16 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="@dimen/_160sdp"/>
+            <ImageView
+                android:id="@+id/exitfullscreen"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/exitfullscreen"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/_160sdp"
+                android:visibility="gone"/>
+
+
         </RelativeLayout>
     </RelativeLayout>
 </layout>

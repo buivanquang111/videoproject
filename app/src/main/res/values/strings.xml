@@ -8,6 +8,7 @@
     <string name="navigation_title_trangchu">Trang chủ</string>
     <string name="navigation_title_thinhhanh">Thịnh hành</string>
     <string name="navigation_title_amnhac">Lịch sử</string>
+    <string name="navigation_title_yeuthich">Yêu thích</string>
 
 
 </resources>
