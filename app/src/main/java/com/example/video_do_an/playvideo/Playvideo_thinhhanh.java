@@ -1,5 +1,9 @@
 package com.example.video_do_an.playvideo;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -17,13 +22,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.video_do_an.R;
-import com.example.video_do_an.SQLHelper;
-import com.example.video_do_an.SQLHelperSave;
+import com.example.video_do_an.SQL.SQLHelperSave;
 import com.example.video_do_an.databinding.PlayvideoThinhhanhBinding;
 import com.example.video_do_an.define.Define_Methods;
-import com.example.video_do_an.thinh_hanh.Thinhhanh;
-import com.example.video_do_an.thinh_hanh.Video_thinhhanh;
-import com.example.video_do_an.trang_chu.Video;
+import com.example.video_do_an.Contact.Thinhhanh;
+import com.example.video_do_an.Contact.Video;
 
 import java.util.ArrayList;
 
@@ -35,6 +38,13 @@ public class Playvideo_thinhhanh extends Fragment {
     String image;
     double currentposition,totalduration;
     Thinhhanh thinhhanhsave;
+
+    AudioManager audioManager;
+    int maxVol, stepVol, currentVol;
+    int x1,y1;
+    int time;
+    boolean reChangeVol = true;
+    boolean reChangePosition = true;
 
     SQLHelperSave sqlHelperSave;
     ArrayList<Video> arrayListThinhHanhSave;
@@ -51,6 +61,7 @@ public class Playvideo_thinhhanh extends Fragment {
         return fragment;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -82,13 +93,7 @@ public class Playvideo_thinhhanh extends Fragment {
         //diplay controll
         Display display = new Display();
         myHandler.postDelayed(display,5000);
-        binding.playvideoviewthinhhanh.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                binding.rvcontroll.setVisibility(View.VISIBLE);
-                return false;
-            }
-        });
+        // phần tua đâu
 
         //dừng video
        binding.imgpausevideoTT.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +160,108 @@ public class Playvideo_thinhhanh extends Fragment {
         });
 
 
+
+
+
+        // setUp Volume and Position
+        audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+        maxVol = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        stepVol = 100 / maxVol;
+        currentVol = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        currentVol = currentVol * stepVol;
+        binding.tvCurrentVol.setText(String.valueOf(currentVol));
+
+
+    // Control Volume and Position
+        binding.playvideoviewthinhhanh.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getActionMasked()) {
+                    case MotionEvent.ACTION_DOWN:
+                        x1 = (int) motionEvent.getX();
+                        y1 = (int) motionEvent.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        binding.currentime.setText(timeConversion(binding.playvideoviewthinhhanh.getDuration()));
+                        if (Math.abs(motionEvent.getX() - x1) > 50) {
+                            binding.rvtimeevent.setVisibility(View.VISIBLE);
+                            int timeCurent = (binding.playvideoviewthinhhanh.getCurrentPosition() + (int) motionEvent.getX() - x1);
+                            binding.playvideoviewthinhhanh.seekTo(timeCurent);
+                            binding.curenposition.setText(timeConversion(timeCurent));
+                        }
+
+                        if (Math.abs(motionEvent.getY() - y1) > 50) {
+                            binding.changeVol.setVisibility(View.VISIBLE);
+                            if (motionEvent.getY() - y1 < 0 && currentVol < 100) {
+                                currentVol++;
+                                binding.tvCurrentVol.setText(String.valueOf(currentVol));
+                                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVol / stepVol, 0);
+
+                            } else if (motionEvent.getY() - y1 > 0 && currentVol > 0) {
+                                currentVol--;
+                                binding.tvCurrentVol.setText(String.valueOf(currentVol));
+                                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVol / stepVol, 0);
+
+                            }
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        binding.rvtimeevent.setVisibility(View.INVISIBLE);
+                        binding.changeVol.setVisibility(View.INVISIBLE);
+                        reChangeVol = true;
+                        reChangePosition = true;
+                        break;
+                }
+                binding.rvcontroll.setVisibility(View.VISIBLE);
+                return true;
+            }
+        });
+
+        //fullscreen
+        binding.fullscreenTT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.tvplayvideoviewthinhhanh.setVisibility(View.GONE);
+                binding.exitfullscreenTT.setVisibility(View.VISIBLE);
+                binding.fullscreenTT.setVisibility(View.GONE);
+                time = binding.playvideoviewthinhhanh.getCurrentPosition();
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                RelativeLayout.LayoutParams params1 = (RelativeLayout.LayoutParams) binding.rlVideoView.getLayoutParams();
+
+                params1.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                params1.height = ViewGroup.LayoutParams.MATCH_PARENT;
+
+                binding.rlVideoView.setLayoutParams(params1);
+                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                binding.playvideoviewthinhhanh.seekTo(time);
+
+            }
+        });
+
+        //exit fullscreen
+        binding.exitfullscreenTT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.fullscreenTT.setVisibility(View.VISIBLE);
+                binding.exitfullscreenTT.setVisibility(View.GONE);
+                time = binding.playvideoviewthinhhanh.getCurrentPosition();
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                RelativeLayout.LayoutParams params1 = (RelativeLayout.LayoutParams) binding.rlVideoView.getLayoutParams();
+
+                params1.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                params1.height = 600;
+
+                binding.rlVideoView.setLayoutParams(params1);
+                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                binding.playvideoviewthinhhanh.seekTo(time);
+
+
+
+            }
+        });
+
         return binding.getRoot();
+
     }
 
     //time

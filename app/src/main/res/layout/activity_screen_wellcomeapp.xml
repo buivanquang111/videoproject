@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_50sdp"
         android:layout_centerHorizontal="true"
-        android:text="Wellcome my app of BuiQuang"
+        android:text="Welcome to my app"
         android:textColor="@color/textcolor"
         android:textStyle="bold"
         android:gravity="center"

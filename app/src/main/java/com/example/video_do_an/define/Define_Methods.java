@@ -1,6 +1,6 @@
 package com.example.video_do_an.define;
 
-import com.example.video_do_an.trang_chu.Video;
+import com.example.video_do_an.Contact.Video;
 
 import java.util.ArrayList;
 

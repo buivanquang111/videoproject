@@ -1,13 +1,14 @@
 package com.example.video_do_an.playvideo;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 
 
 import android.os.Handler;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,13 +24,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.video_do_an.R;
-import com.example.video_do_an.SQLHelper;
-import com.example.video_do_an.SQLHelperSave;
+import com.example.video_do_an.SQL.SQLHelper;
+import com.example.video_do_an.SQL.SQLHelperSave;
 import com.example.video_do_an.databinding.PlayvideoTrangchuBinding;
 import com.example.video_do_an.define.Define_Methods;
-import com.example.video_do_an.trang_chu.AdapterVideo;
-import com.example.video_do_an.trang_chu.IOnClickPlayVideo;
-import com.example.video_do_an.trang_chu.Video;
+import com.example.video_do_an.Adapter.AdapterTrangChu;
+import com.example.video_do_an.Interface.IOnClickPlayVideo;
+import com.example.video_do_an.Contact.Video;
+
 import java.util.ArrayList;
 
 public class Playvideo_trangchu extends Fragment {
@@ -46,8 +48,15 @@ public class Playvideo_trangchu extends Fragment {
     double currentposition,totalduration;
     int position=0;
     ArrayList<Video> arrayList;
-    AdapterVideo adapterVideo;
+    AdapterTrangChu adapterVideo;
     Video videosave;
+
+    AudioManager audioManager;
+    int maxVol, stepVol, currentVol;
+    int x1,y1;
+    int time;
+    boolean reChangeVol = true;
+    boolean reChangePosition = true;
 
     Define_Methods define_methods = new Define_Methods();
     SQLHelper sqlHelper;
@@ -101,13 +110,7 @@ public class Playvideo_trangchu extends Fragment {
         //diplay controll
         Display display = new Display();
         myHandler.postDelayed(display,5000);
-        binding.playvideoview.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                binding.control.setVisibility(View.VISIBLE);
-                return false;
-            }
-        });
+
 
         //dừng video
         binding.imgpausevideo.setOnClickListener(new View.OnClickListener() {
@@ -166,17 +169,6 @@ public class Playvideo_trangchu extends Fragment {
         });
 
 
-
-
-        //next video
-        binding.imgnextvideo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(),"next video",Toast.LENGTH_LONG).show();
-
-            }
-        });
-
         //addsavevideo
         binding.savevideo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,7 +178,102 @@ public class Playvideo_trangchu extends Fragment {
             }
         });
 
+        // setUp Volume and Position
+        audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+        maxVol = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        stepVol = 100 / maxVol;
+        currentVol = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        currentVol = currentVol * stepVol;
+        binding.tvvolume.setText(String.valueOf(currentVol));
 
+
+        // Control Volume and Position
+        binding.playvideoview.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getActionMasked()) {
+                    case MotionEvent.ACTION_DOWN:
+                        x1 = (int) motionEvent.getX();
+                        y1 = (int) motionEvent.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        binding.currentimeTC.setText(timeConversion(binding.playvideoview.getDuration()));
+                        if (Math.abs(motionEvent.getX() - x1) > 50) {
+                            binding.rvtimetua.setVisibility(View.VISIBLE);
+                            int timeCurent = (binding.playvideoview.getCurrentPosition() + (int) motionEvent.getX() - x1);
+                            binding.playvideoview.seekTo(timeCurent);
+                            binding.currenpositionTC.setText(timeConversion(timeCurent));
+                        }
+
+                        if (Math.abs(motionEvent.getY() - y1) > 50) {
+                            binding.rvvolume.setVisibility(View.VISIBLE);
+                            if (motionEvent.getY() - y1 < 0 && currentVol < 100) {
+                                currentVol++;
+                                binding.tvvolume.setText(String.valueOf(currentVol));
+                                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVol / stepVol, 0);
+
+                            } else if (motionEvent.getY() - y1 > 0 && currentVol > 0) {
+                                currentVol--;
+                                binding.tvvolume.setText(String.valueOf(currentVol));
+                                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVol / stepVol, 0);
+
+                            }
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        binding.rvtimetua.setVisibility(View.INVISIBLE);
+                        binding.rvvolume.setVisibility(View.INVISIBLE);
+                        reChangeVol = true;
+                        reChangePosition = true;
+                        break;
+                }
+                binding.control.setVisibility(View.VISIBLE);
+                return true;
+            }
+        });
+
+        //fullscreen
+        binding.fullscreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.tvplayvideoview.setVisibility(View.GONE);
+                binding.exitfullscreen.setVisibility(View.VISIBLE);
+                binding.fullscreen.setVisibility(View.GONE);
+                time = binding.playvideoview.getCurrentPosition();
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                RelativeLayout.LayoutParams params1 = (RelativeLayout.LayoutParams) binding.rvplayvideoview.getLayoutParams();
+
+                params1.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                params1.height = ViewGroup.LayoutParams.MATCH_PARENT;
+
+                binding.rvplayvideoview.setLayoutParams(params1);
+                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                binding.playvideoview.seekTo(time);
+
+            }
+        });
+
+        //exit fullscreen
+        binding.exitfullscreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.fullscreen.setVisibility(View.VISIBLE);
+                binding.exitfullscreen.setVisibility(View.GONE);
+                time = binding.playvideoview.getCurrentPosition();
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                RelativeLayout.LayoutParams params1 = (RelativeLayout.LayoutParams) binding.rvplayvideoview.getLayoutParams();
+
+                params1.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                params1.height = 600;
+
+                binding.rvplayvideoview.setLayoutParams(params1);
+                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                binding.playvideoview.seekTo(time);
+
+
+
+            }
+        });
 
         return binding.getRoot();
     }
